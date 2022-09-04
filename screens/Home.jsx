@@ -1,4 +1,4 @@
-import { Appearance, Image, ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { Appearance, Image, Platform, ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome5, AntDesign, EvilIcons } from '@expo/vector-icons';
 import { SafeAreaView, Text } from '../components/Themed'
@@ -12,6 +12,8 @@ const Home = ({navigation}) => {
   const [categoryState, setCategoryState] = useState('Suggested');
 
     const theme = useColorScheme()
+
+    const ios =Platform.OS === 'ios'
 const route = useRoute()
     const onPressFunc = (title) => {
         setCategoryState(title)
@@ -50,7 +52,7 @@ const route = useRoute()
         
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 50}}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: ios ? 50 : 75}}>
             <View>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16}}>
                     <Text style={{fontSize: 20, fontWeight: '500'}}>Artists</Text>
@@ -59,7 +61,7 @@ const route = useRoute()
                 <View style={{paddingLeft: 16, marginVertical: 16}}>
                 <ScrollView showsHorizontalScrollIndicator={false} horizontal>
                     {SuggestedData.Artists.map((artist, index)=> (
-                        <HomeContent {...artist} />
+                        <HomeContent key={artist.id} {...artist} />
                     ))}
                 </ScrollView>
                 </View>

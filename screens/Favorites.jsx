@@ -1,4 +1,4 @@
-import { Appearance, StyleSheet, Dimensions, TouchableOpacity, View, ScrollView, useColorScheme } from 'react-native'
+import { Appearance, StyleSheet, Dimensions, TouchableOpacity, View, ScrollView, useColorScheme, Platform } from 'react-native'
 import React from 'react'
 import { SafeAreaView, Text } from '../components/Themed'
 import { FontAwesome5, EvilIcons, Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,6 +10,8 @@ import { SongsData } from '../utils/constants/Data';
 const Favorites = () => {
     const {width, height} = Dimensions.get('screen')
     const theme = useColorScheme()
+
+    const ios = Platform.OS === 'ios'
   return (
     <SafeAreaView style={{flex: 1}}>
         <View style={{ paddingTop: 16, flex: 1}}>
@@ -44,7 +46,7 @@ const Favorites = () => {
                 </View>
             </View>
             <View style={{backgroundColor: Colors[theme]['tint'], height: 2, marginHorizontal: 16, marginVertical: 16}}></View>
-            <ScrollView style={{paddingHorizontal: 16, marginBottom: 50}}>
+            <ScrollView style={{paddingHorizontal: 16, marginBottom: ios ? 50 : 85}}>
                 {SongsData.map((song, index)=> (
                 <Song key={song.id} {...song} theme={theme} />
 

@@ -1,4 +1,4 @@
-import { Appearance, Image, ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { Appearance, Image, Platform, ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView, Text } from '../components/Themed'
 import Colors from '../utils/constants/Colors'
@@ -9,6 +9,8 @@ import Setting from '../components/Setting';
 
 const Settings = () => {
     const theme = useColorScheme()
+
+    const ios = Platform.OS === 'ios'
   return (
     <SafeAreaView style={{flex: 1, paddingTop: 16}}>
             <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16,}}>
@@ -28,7 +30,7 @@ const Settings = () => {
             </View>
             <View style={{backgroundColor: Colors[theme]['tint'], height: 2, marginHorizontal: 16, marginVertical: 16}}></View>
             <View style={{paddingHorizontal: 16, flex: 1}}>
-                <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: 60}}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom: ios ? 60 : 85}}>
                     {SettingsData.map((setting, index) => (
                         <Setting theme={theme} key={setting.id} {...setting} />
                     ))}

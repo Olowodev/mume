@@ -1,4 +1,4 @@
-import { Appearance, StyleSheet, View, ScrollView, TouchableOpacity, useColorScheme } from 'react-native'
+import { Appearance, StyleSheet, View, ScrollView, TouchableOpacity, useColorScheme, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView, Text } from '../components/Themed'
 import { FontAwesome5, EvilIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,7 +14,7 @@ const Songs = ({navigation}) => {
     const route = useRoute()
 
     const theme = useColorScheme()
-
+    const ios = Platform.OS === 'ios'
     const onPressFunc = (title) => {
         setCategoryState(title)
         navigation.navigate(title)
@@ -59,9 +59,9 @@ const Songs = ({navigation}) => {
                 </View>
             </View>
             <View style={{backgroundColor: Colors[theme]['tint'], height: 2, marginHorizontal: 16, marginVertical: 16}}></View>
-            <ScrollView style={{paddingHorizontal: 16, marginBottom: 50}}>
+            <ScrollView style={{paddingHorizontal: 16, marginBottom: ios ? 50 : 75}}>
                 {SongsData.map((song, index)=> (
-                    <Song {...song} theme={theme} />
+                    <Song key={song.id} {...song} theme={theme} />
                 ))}
             </ScrollView>
         </View>

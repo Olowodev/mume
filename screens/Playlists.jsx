@@ -1,4 +1,4 @@
-import { Appearance, ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native'
+import { Appearance, Platform, ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView, Text } from '../components/Themed'
 import { MaterialCommunityIcons,  FontAwesome5, EvilIcons, AntDesign } from '@expo/vector-icons';
@@ -8,6 +8,8 @@ import { PlaylistsData } from '../utils/constants/Data';
 
 const Playlists = () => {
     const theme = useColorScheme()
+
+    const ios = Platform.OS === 'ios'
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{ paddingTop: 16, flex: 1}}>
@@ -28,7 +30,7 @@ const Playlists = () => {
                 </View>
             </View>
             <View style={{backgroundColor: Colors[theme]['tint'], height: 2, marginHorizontal: 16, marginVertical: 16}}></View>
-            <ScrollView style={{paddingHorizontal: 16, marginBottom: 50}}>
+            <ScrollView style={{paddingHorizontal: 16, marginBottom: ios ? 50 : 85}}>
                 <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 24, paddingLeft: 16}}>
                     <View style={{backgroundColor: Colors[theme]['themeColor'], borderRadius: 50, padding: 24}}>
                         <AntDesign name="plus" size={24} color="white" />
@@ -36,7 +38,7 @@ const Playlists = () => {
                     <Text style={{marginLeft: 12, fontSize: 18, fontWeight: '500'}}>Add New Playlist</Text>
                 </View>
                 {PlaylistsData.map((playlist, index)=> (
-                    <Song {...playlist} theme={theme} playlist />
+                    <Song key={playlist.id} {...playlist} theme={theme} playlist />
                 ))}
             </ScrollView>
         </View>

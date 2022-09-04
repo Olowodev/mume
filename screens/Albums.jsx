@@ -1,4 +1,4 @@
-import { Appearance, StyleSheet, View, ScrollView, TouchableOpacity, useColorScheme, FlatList } from 'react-native'
+import { Appearance, StyleSheet, View, ScrollView, TouchableOpacity, useColorScheme, FlatList, Platform } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView, Text } from '../components/Themed'
 import { FontAwesome5, EvilIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,7 +14,7 @@ const Albums = ({navigation}) => {
     const route = useRoute()
 
     const theme = useColorScheme()
-
+const ios = Platform.OS === 'ios'
     const onPressFunc = (title) => {
         setCategoryState(title)
         navigation.navigate(title)
@@ -60,7 +60,7 @@ const Albums = ({navigation}) => {
             </View>
             <View style={{backgroundColor: Colors[theme]['tint'], height: 2, marginHorizontal: 16, marginVertical: 16}}></View>
             <View style={{flex: 1}}>
-            <FlatList style={{paddingHorizontal: 16, marginBottom:70}} showsVerticalScrollIndicator={false} numColumns={2}
+            <FlatList style={{paddingHorizontal: 16, marginBottom:ios ? 70 : 95}} showsVerticalScrollIndicator={false} numColumns={2}
           data={AlbumsData}
           renderItem={({item, index}) => {
             return (
